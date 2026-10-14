@@ -15,8 +15,7 @@ window.BTE_META = {
       'geral-inorganica': 'Química geral e inorgânica',
       'fisico-quimica': 'Físico-química',
       'organica': 'Química orgânica',
-      'enem': 'ENEM',
-      'estudo': 'Estudos orientados',
+      'estrategia-enem': 'Estratégia ENEM'
     },
     formato: {
       arena: 'Arena gamificada',
