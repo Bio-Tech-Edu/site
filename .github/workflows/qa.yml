@@ -1,0 +1,57 @@
+name: QA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 11 * * 1'   # segundas, 11:00 UTC = 07:00 em Mato Grosso (UTC-4)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  qualidade:
+    name: Validação do portal
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22   # o html-validate 11 exige Node 22.22 ou superior
+
+      - name: Catálogo (esquema e regras, miniaturas obrigatórias)
+        run: node scripts/validar-catalogo.mjs --estrito
+
+      - name: Contraste dos tokens (claro e escuro)
+        run: node scripts/checar-contraste.mjs
+
+      - name: Arquivos gerados em sincronia com os dados
+        run: node scripts/sincronizar.mjs --verificar
+
+      - name: Busca e filtros do catálogo (jsdom)
+        run: |
+          npm i --no-save jsdom
+          node scripts/testar-catalogo.mjs
+
+      - name: Âncoras e links internos
+        run: |
+          node scripts/checar-ancoras.mjs README.md docs/projeto-executivo.md
+          node scripts/checar-links.mjs --internos
+
+      - name: Orçamento de desempenho
+        run: node scripts/checar-orcamento.mjs
+
+      - name: HTML válido
+        run: npx --yes html-validate@11.16.2 index.html privacidade.html 404.html
+
+      - name: Links externos (somente no agendamento semanal ou manual)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/checar-links.mjs --externos
