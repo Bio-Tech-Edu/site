@@ -1,0 +1,50 @@
+:root {
+  /* Cor: marca */
+  --navy-950:#061629; --navy-900:#0B2747; --navy-700:#123A68; --navy-600:#1B5192;
+  --teal-300:#7FE0DB; --teal-500:#2DC3BF; --teal-600:#1AA39F; --teal-700:#0A716E;
+  --orange-500:#F47C26; --orange-700:#A94F05;
+  --mist-50:#F3FAFB; --mist-100:#E3F2F4; --ink:#0D1B2A; --slate:#44566A;
+
+  /* Cor: papéis semânticos (tema claro) */
+  --bg: var(--mist-50);
+  --surface: #FFFFFF;
+  --surface-alt: var(--mist-100);
+  --text: var(--ink);
+  --text-muted: var(--slate);
+  --heading: var(--navy-700);
+  --link: var(--navy-600);
+  --accent: var(--teal-700);
+  --accent-warm: var(--orange-700);
+  --border: #CFE3E7;
+  --focus: var(--navy-600);
+
+  /* Tipografia */
+  --font-display: "Sora", system-ui, "Segoe UI", sans-serif;
+  --font-body: "Figtree", system-ui, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);   /* corpo */
+  --fs-1: clamp(1.125rem, 1.05rem + 0.4vw, 1.3rem);
+  --fs-2: clamp(1.35rem, 1.2rem + 0.8vw, 1.75rem);
+  --fs-3: clamp(1.75rem, 1.4rem + 1.8vw, 2.6rem);
+  --fs-4: clamp(2.2rem, 1.6rem + 3.2vw, 4rem);        /* título do hero */
+
+  /* Espaço, forma, sombra */
+  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem; --sp-5:1.5rem;
+  --sp-6:2rem; --sp-7:3rem; --sp-8:4.5rem; --sp-9:7rem;
+  --radius-s:10px; --radius-m:16px; --radius-l:24px; --radius-pill:999px;
+  --shadow-1: 0 1px 2px rgb(11 39 71 / .08), 0 4px 12px rgb(11 39 71 / .06);
+  --shadow-2: 0 2px 4px rgb(11 39 71 / .08), 0 14px 32px rgb(11 39 71 / .12);
+  --container: 72rem;
+  --header-h: 4.25rem;
+}
+
+/* Tema escuro: automático pelo sistema ou forçado pelo alternador */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg:var(--navy-950); --surface:var(--navy-900);
+    --surface-alt:#0E3156; --text:#E8F1F7; --text-muted:#A9BBCB; --heading:#FFFFFF;
+    --link:var(--teal-300); --accent:var(--teal-300); --accent-warm:var(--orange-500);
+    --border:#1D4572; --focus:var(--teal-300); }
+}
+:root[data-theme="dark"] { --bg:var(--navy-950); --surface:var(--navy-900);
+  --surface-alt:#0E3156; --text:#E8F1F7; --text-muted:#A9BBCB; --heading:#FFFFFF;
+  --link:var(--teal-300); --accent:var(--teal-300); --accent-warm:var(--orange-500);
+  --border:#1D4572; --focus:var(--teal-300); }
